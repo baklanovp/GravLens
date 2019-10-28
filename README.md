@@ -1,2 +1,2 @@
-# GravLens
-GravLens
+# GravityLens
+GravityLens
