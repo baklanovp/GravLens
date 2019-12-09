@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <math.h>
-#define NUMNUM 3000
+#define NUMNUM 1000
 
 
-double mvec(double x, double y){       //modul of vector
+double mvec(double x, double y){          //modul of vector
     return (double) sqrt(x*x+y*y);
 }
 
@@ -11,22 +11,21 @@ double theta(double m, double p){        //function of deflection angle
     return m/p;
 }
 
-double rn(){
+double rn(){                             //random generator
   return  (double)(rand())/RAND_MAX;
 }
 
-// double mdist(double mrand, double power, double min_mass, double max_mass){
-//   return  (pow(mrand*(pow(max_mass,(1+power))-(min_mass,(1+power)))+pow(min_mass,(1+power))),(1/(1+power)));
-// }
 
 int main()
 {
 
-
+//_________________________INPUT PARAMETER_______________________
   double gamma=0.1;
   double kappac=0.0;
 
   double pix=10;
+
+  //_____________________________________________________________
   double xx0=-pix;
   double yy0=-pix;
   double xxe=pix;
@@ -43,34 +42,42 @@ int main()
   double objectx;
   double objecty;
 
-  int Nlens=1;
-  double lensposx[]={0.92, -0.92};
-  double lensposy[]={0.0001, 0.0001};
-  double m[]={0.2, 2};
 
-//   int Nlens=1000;
-//   double lensposx[Nlens];
-//   double lensposy[Nlens];
-//   double m[Nlens];
-//   double power=-1.3;
-//   double min_mass=0.01;
-//   double max_mass=2;
-//   double mm;
-//   printf("Generation lenses...\n");
-//   FILE *fpos = fopen ("lenspos","w");
-//   if (fpos!=NULL)
-//   {
-//   for(int lens=0; lens<=Nlens; lens++){
-//       lensposx[lens]=rn()*2*pix-pix;
-//       lensposy[lens]=rn()*2*pix-pix;
-//       mm=rn()*1;
-//       // m[lens]=mdist(mm, power, min_mass, max_mass);//((mm*(max_mass**(1+power)-min_mass**(1+power))+min_mass**(1+power))**(1/(1+power)));
-//       m[lens]=pow(mm*(pow(max_mass, 1+power)-pow(min_mass, 1+power))+pow(min_mass, 1+power),(1/(1+power)));
-//       fprintf(fpos,"%10.8f    %10.8f    %10.8f\n",lensposx[lens], lensposy[lens], m[lens]);
-//   }
-// }
-// fclose (fpos);
+//_________________________LENS GENERATION________________________
 
+
+
+//------------------DOBLE LENS-----------------
+  // int Nlens=1;
+  // double lensposx[]={0.92, -0.92};
+  // double lensposy[]={0.0001, 0.0001};
+  // double m[]={0.2, 2};
+//---------------------------------------------
+
+//_______LENS GENERATION POWER LOW_____________
+  int Nlens=1000;
+  double lensposx[Nlens];
+  double lensposy[Nlens];
+  double m[Nlens];
+  double power=-1.3;
+  double min_mass=0.01;
+  double max_mass=2;
+  double mm;
+  printf("Generation lenses...\n");
+  FILE *fpos = fopen ("lenspos","w");
+  if (fpos!=NULL)
+  {
+  for(int lens=0; lens<=Nlens; lens++){
+      lensposx[lens]=rn()*2*pix-pix;
+      lensposy[lens]=rn()*2*pix-pix;
+      mm=rn()*1;
+      // m[lens]=mdist(mm, power, min_mass, max_mass);//((mm*(max_mass**(1+power)-min_mass**(1+power))+min_mass**(1+power))**(1/(1+power)));
+      m[lens]=pow(mm*(pow(max_mass, 1+power)-pow(min_mass, 1+power))+pow(min_mass, 1+power),(1/(1+power)));
+      fprintf(fpos,"%10.8f    %10.8f    %10.8f\n",lensposx[lens], lensposy[lens], m[lens]);
+  }
+}
+fclose (fpos);
+//________________________________________________________________
 
   double th, modvec;
   printf("Generation map amplification...\n");
